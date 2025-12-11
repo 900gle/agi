@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  neo4j:
+    image: neo4j:5.12
+    container_name: neo4j
+    ports:
+      - "7474:7474"   # Web UI (Neo4j Browser)
+      - "7687:7687"   # Bolt (애플리케이션 연결용)
+    environment:
+      NEO4J_AUTH: "neo4j/test1234"   # ID/PW : neo4j / test1234 (원하면 바꿔)
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "root1234"    # root 비밀번호
+      MYSQL_DATABASE: "appdb"            # 기본 DB 하나 만들어줌
+      TZ: "Asia/Seoul"
+    command: ["--default-authentication-plugin=mysql_native_password"]
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: unless-stopped
+
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+volumes:
+  neo4j_data:
+  neo4j_logs:
+  mysql_data:
+  redis_data:
