@@ -17,6 +17,11 @@ project-root/
 ├─ Dockerfile
 ├─ requirements.txt
 └─ main.py
+└─ batch/
+├─ es_client.py              
+├─ neo4j_client.py           
+├─ search_log_processor.py   
+└─ main.py                   
 ```
 
 ---

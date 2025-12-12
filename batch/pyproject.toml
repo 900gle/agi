@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "search-graph"
+version = "0.1.0"
+description = "Elasticsearch 검색 로그를 Neo4j 그래프로 적재하는 유틸리티"
+requires-python = ">=3.10"
+dependencies = [
+    "elasticsearch>=7,<8",
+    "neo4j>=5,<6",
+    "PyYAML>=6",
+    "python-dotenv>=1",
+]
+
+[project.scripts]
+search-graph = "search_graph.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
