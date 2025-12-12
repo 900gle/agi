@@ -1,0 +1,74 @@
+# -------------------------
+# Python
+# -------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.pkl
+
+# Virtual envs
+env/
+venv/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+*.egg
+
+# -------------------------
+# Project configs
+# -------------------------
+# IDE/Editor settings
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Byte-compiled / cache
+.cache/
+.mypy_cache/
+.pytest_cache/
+
+# -------------------------
+# Environments / Secrets
+# -------------------------
+.env
+*.env
+
+# -------------------------
+# Search Graph Project specifics
+# -------------------------
+# DO NOT ignore config.yaml if you want it versioned.
+# If you want to ignore sensitive config, uncomment:
+# config.yaml
+# config.yml
+
+# Query / Result output
+query/*.json
+result/*.txt
+
+# -------------------------
+# Neo4j Local Files (if any)
+# -------------------------
+data/
+logs/
+import/
+plugins/
+
+# -------------------------
+# Temporary files
+# -------------------------
+*.tmp
+*.swp
+*.bak

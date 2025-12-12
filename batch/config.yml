@@ -1,0 +1,13 @@
+log_level: INFO
+
+elasticsearch:
+  index_name: home-search-query-log
+  key_field: query_log
+  query_file: ../query/searchlog.json
+  verify_certs: false
+
+neo4j:
+  # .env 값이 우선 적용되지만 기본값도 남겨둠
+  uri: bolt://localhost:7687
+  user: neo4j
+  password: 2Engussla
