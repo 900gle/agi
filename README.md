@@ -8,20 +8,57 @@
 ## 📁 프로젝트 구조
 
 ```
-project-root/
-├─ docker-compose.yml
-├─ neo4j/
-│ ├─ plugins/
-│ └─ import/
-└─ api/
-├─ Dockerfile
-├─ requirements.txt
-└─ main.py
-└─ batch/
-├─ es_client.py              
-├─ neo4j_client.py           
-├─ search_log_processor.py   
-└─ main.py                   
+.
+├── README.md
+├── __init__.py
+├── api
+│   ├── Dockerfile
+│   ├── main.py
+│   └── requirements.txt
+├── batch
+│   ├── __init__.py
+│   ├── cli.py
+│   ├── config.yml
+│   ├── es_client.py
+│   ├── main.py
+│   ├── neo4j_client.py
+│   ├── pyproject.toml
+│   ├── search_log_processor.py
+│   └── src
+│       ├── __init__.py
+│       ├── search_graph
+│       │   ├── __init__.py
+│       │   ├── __pycache__
+│       │   ├── cli.py
+│       │   ├── config.py
+│       │   ├── es_client.py
+│       │   ├── logging_config.py
+│       │   ├── main.py
+│       │   ├── neo4j_client.py
+│       │   └── search_log_processor.py
+│       └── search_graph.egg-info
+│           ├── PKG-INFO
+│           ├── SOURCES.txt
+│           ├── dependency_links.txt
+│           ├── entry_points.txt
+│           ├── requires.txt
+│           └── top_level.txt
+├── config.py
+├── config.yml
+├── docker-compose-full.yml
+├── docker-compose.yml
+├── logging_config.py
+├── neo4j
+│   ├── import
+│   └── plugins
+├── query
+│   └── searchlog.json
+├── result
+│   └── log_result.txt
+├── start.py
+├── step1.py
+├── step2.py
+└── step3.py                
 ```
 
 ---
