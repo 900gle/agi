@@ -58,3 +58,19 @@ class Neo4jService:
         with self._driver.session() as session:
             result = session.run(query, name=name)
             return result.data()  # 리스트로 한 번에 가져오기
+
+    def merge_keyword(self, name: str):
+        query = "MERGE (k:Keyword {name:$name}) RETURN k"
+        with self._driver.session() as session:
+            return session.run(query, name=name).single()
+
+    def create_fail_next_relation(self, from_kw: str, to_kw: str, ts: str):
+        query = """
+        MATCH (a:Keyword {name:$from_kw}), (b:Keyword {name:$to_kw})
+        MERGE (a)-[r:FAIL_NEXT]->(b)
+        ON CREATE SET r.count = 1, r.first_seen = $ts, r.last_seen = $ts
+        ON MATCH SET r.count = r.count + 1, r.last_seen = $ts
+        RETURN r
+        """
+        with self._driver.session() as session:
+            return session.run(query, from_kw=from_kw, to_kw=to_kw, ts=ts).single()
