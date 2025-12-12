@@ -1,74 +1,26 @@
-# -------------------------
-# Python
-# -------------------------
+# Python / 빌드 산출물
 __pycache__/
 *.py[cod]
-*.pyo
-*.pyd
-*.pdb
-*.pkl
+*.egg-info/
+build/
+dist/
 
-# Virtual envs
+# 가상환경
 env/
 venv/
 .venv/
 
-# Jupyter
-.ipynb_checkpoints/
-
-# Build artifacts
-build/
-dist/
-*.egg-info/
-*.egg
-
-# -------------------------
-# Project configs
-# -------------------------
-# IDE/Editor settings
+# IDE
 .vscode/
 .idea/
 
 # macOS
 .DS_Store
 
-# Logs
-*.log
-
-# Byte-compiled / cache
-.cache/
-.mypy_cache/
-.pytest_cache/
-
-# -------------------------
-# Environments / Secrets
-# -------------------------
+# 환경 변수
 .env
 *.env
 
-# -------------------------
-# Search Graph Project specifics
-# -------------------------
-# DO NOT ignore config.yaml if you want it versioned.
-# If you want to ignore sensitive config, uncomment:
-# config.yaml
-# config.yml
-
-# Query / Result output
-query/*.json
-result/*.txt
-
-# -------------------------
-# Neo4j Local Files (if any)
-# -------------------------
-data/
-logs/
-import/
-plugins/
-
-# -------------------------
-# Temporary files
-# -------------------------
-*.tmp
-*.swp
-*.bak
+# 프로젝트 특화
+query/
+result/

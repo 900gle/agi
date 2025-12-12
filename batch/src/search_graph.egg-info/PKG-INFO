@@ -1,9 +1,0 @@
-Metadata-Version: 2.4
-Name: search-graph
-Version: 0.1.0
-Summary: Elasticsearch 검색 로그를 Neo4j 그래프로 적재하는 유틸리티
-Requires-Python: >=3.10
-Requires-Dist: elasticsearch<9,>=8
-Requires-Dist: neo4j<6,>=5
-Requires-Dist: PyYAML>=6
-Requires-Dist: python-dotenv>=1
