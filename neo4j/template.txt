@@ -1,0 +1,108 @@
+- 삭제
+MATCH (n) DETACH DELETE n;
+
+- 데이터 조회
+MATCH (n) RETURN n LIMIT 100;
+
+
+
+//여러개 한번에 처리
+// 1) 우선 필요한 노드들 전부 만들고
+UNWIND ['스마트폰'
+, '전기차'
+, 'AI'
+, '애플'
+, '엔비디아'
+, '테슬라'
+, '양자'
+, '아이온큐'
+, '로봇'
+, '리치테크로보틱스'
+, '우주'
+, '로캣랩'
+, '리게티'
+ ] AS name
+MERGE (:Keyword {name:name});
+
+//2) 관계를 맺음
+UNWIND [
+  ['스마트폰', '애플'],
+  ['전기차', '테슬라'],
+  ['양자', '아이온큐'],
+  ['로봇', '리치테크로보틱스'],
+  ['우주', '로캣랩'],
+  ['양자', '리게티'],
+  ['AI', '엔비디아'],
+  ['양자', '엔비디아'],
+  ['AI', '테슬라'],
+  ['로봇', '테슬라'],
+  ['테슬라', '로봇'],
+  ['전기차', '애플']
+] AS pair
+
+MATCH (a:Keyword {name: pair[0]}),
+      (b:Keyword {name: pair[1]})
+MERGE (a)-[r:RELATED]->(b)
+ON CREATE SET r.count = 1
+ON MATCH SET r.count = r.count + 1
+RETURN a.name, b.name, r.count;
+
+3) NEXT
+UNWIND ["스마트폰", "전기차", "AI", "양자", "로봇", "우주"] AS name
+WITH collect(name) AS names  // ["스마트폰","전기차",...,"우주"]
+
+UNWIND range(0, size(names)-2) AS i
+WITH names[i]   AS fromName,
+     names[i+1] AS toName
+
+MATCH (from:Keyword {name: fromName}),
+      (to:Keyword   {name: toName})
+MERGE (from)-[:NEXT]->(to);
+
+
+
+// 하나씩 처리 하는 방법
+- 투자전략
+CREATE
+  (k1:Keyword {name: "스마트폰"})-
+  [:NEXT]->(k2:Keyword {name: "전기차"})-
+  [:NEXT]->(k3:Keyword {name: "AI"})-
+  [:NEXT]->(k4:Keyword {name: "양자"})-
+  [:NEXT]->(k5:Keyword {name: "로봇"})-
+  [:NEXT]->(k6:Keyword {name: "우주"});
+
+- 관계생성
+MERGE (:Keyword {name: '애플'});  // 노드만 먼저 만들고
+
+MATCH (a:Keyword {name:'스마트폰'}), (b:Keyword {name:'애플'})
+MERGE (a)-[r:RELATED]->(b)
+ON CREATE SET r.count = 1
+ON MATCH SET r.count = r.count + 1
+RETURN r;
+
+MERGE (:Keyword {name: '테슬라'});
+
+MATCH (a:Keyword {name:'전기차'}), (b:Keyword {name:'테슬라'})
+MERGE (a)-[r:RELATED]->(b)
+ON CREATE SET r.count = 1
+ON MATCH SET r.count = r.count + 1
+RETURN r;
+
+MERGE (:Keyword {name: '엔비디아'});
+MATCH (a:Keyword {name:'AI'}), (b:Keyword {name:'엔비디아'})
+MERGE (a)-[r:RELATED]->(b)
+ON CREATE SET r.count = 1
+ON MATCH SET r.count = r.count + 1
+RETURN r;
+
+
+조회
+MATCH (a:Keyword {name:"스마트폰"})-[r:NEXT*1..5]->(b)
+RETURN a, r, b;
+
+특정노드 기준으로
+MATCH (a:Keyword {name:'양자'})-[r]->(b)
+RETURN a, r, b;
+
+
+

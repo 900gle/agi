@@ -41,3 +41,64 @@ class ElasticsearchService:
         hits = response.get("hits", {}).get("hits", [])
         logger.info("ES 결과 hits 개수: %d", len(hits))
         return response
+
+    def aggregate_user_pcid(
+        self,
+        index_name: str,
+        gte: str,
+        lte: str,
+        size: int = 10000,
+    ):
+        """
+        특정 기간 동안 user_pcid 기준으로 terms 집계를 수행하고
+        USER_PCID buckets 를 반환한다.
+        """
+        logger.info(
+            "user_pcid 집계 실행: index=%s, gte=%s, lte=%s, size=%d",
+            index_name,
+            gte,
+            lte,
+            size,
+        )
+
+        body = {
+            "size": 0,
+            "query": {
+                "bool": {
+                    "filter": [
+                        {
+                            "range": {
+                                "query_log.created_date_time": {
+                                    "gte": gte,
+                                    "lte": lte,
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "aggs": {
+                "USER_PCID": {
+                    "terms": {
+                        "field": "query_log.user_pcid.keyword",
+                        "size": size,
+                    }
+                }
+            },
+        }
+
+        logger.debug("user_pcid 집계 body: %s", body)
+
+        response = self.client.search(
+            index=index_name,
+            body=body,
+        )
+
+        buckets = (
+            response.get("aggregations", {})
+            .get("USER_PCID", {})
+            .get("buckets", [])
+        )
+
+        logger.info("user_pcid 집계 결과 bucket 개수: %d", len(buckets))
+        return buckets

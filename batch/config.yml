@@ -11,3 +11,15 @@ neo4j:
   uri: bolt://localhost:7687
   user: neo4j
   password: 2Engussla
+
+user_pcid_export:
+  gte: "2024-12-01T00:00:00.000"
+  lte: "2025-01-01T00:00:00.000"
+  size: 10000
+  output_file: "./result/user_pcid_list.csv"
+
+user_pcid_processing:
+  pcid_list_file: "./result/user_pcid_list.csv"
+  gte: "2024-12-01T00:00:00.000"
+  lte: "2025-01-01T00:00:00.000"
+  size: 10000

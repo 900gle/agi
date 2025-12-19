@@ -100,7 +100,7 @@ volumes:
   neo4j_logs:
   ```
 
-🧩 FastAPI   
+ FastAPI   
 
  Dockerfile  
 ```
@@ -120,7 +120,7 @@ COPY . .
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
-📦 requirements.txt
+ requirements.txt
 ```
 css
 코드 복사
@@ -130,7 +130,7 @@ neo4j
 pydantic
 ```
 
-🚀 실행 방법
+ 실행 방법
 1) 컨테이너 실행
 ```
 docker-compose up -d --build
@@ -139,7 +139,7 @@ docker-compose up -d --build
 ```
 docker ps
 ```
-🧪 API 테스트
+ API 테스트
 
 ✔ Swagger UI
 브라우저에서:
@@ -153,7 +153,7 @@ curl -X POST "http://localhost:8000/next" \
   -H "Content-Type: application/json" \
   -d '{"from_kw": "치킨", "to_kw": "닭고기"}'
 ```
-🧭 Neo4j 데이터 확인
+ Neo4j 데이터 확인
 Neo4j Browser:
 
 arduino
@@ -173,7 +173,7 @@ MATCH (a:Keyword)-[r:NEXT]->(b:Keyword)
 RETURN a.name AS from_kw, r.count AS count, b.name AS to_kw
 ORDER BY count DESC;
 ```
-⚠ Neo4j 컨테이너 재시작 문제 해결
+ Neo4j 컨테이너 재시작 문제 해결
 ```
 Neo4j가 Restarting (1) 상태일 경우:
 
@@ -186,7 +186,7 @@ NEO4JLABS_PLUGINS 제거
 
 SSL 문제로 플러그인 자동 다운로드가 실패하면 Neo4j가 부팅되지 않습니다.
 ```
-🎯 목적 요약
+ 목적 요약
 ```
 Docker 기반 Neo4j + API 실행 템플릿
 
